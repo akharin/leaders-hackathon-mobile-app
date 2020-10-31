@@ -1,0 +1,1 @@
+export const CHANGE_CATEGORY_ID = 'RA_CHANGE_CATEGORY_ID';
