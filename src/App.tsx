@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import PrivateRoute from "./routes/PrivateRoute";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -26,17 +26,19 @@ import "./theme/variables.css";
 import AppScreen from "./screens/AppScreen";
 import LoginPage from "./pages/LoginPage";
 import { store } from "./store/configureAppStore";
+import RegisterPage from "./pages/RegisterPage";
 
 const App: React.FC = () => (
   <IonApp>
-    <Provider store={store}>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <PrivateRoute path="/" component={AppScreen} exact />
-          <Route path="/login" component={LoginPage} exact />
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </Provider>
+    {/* <Provider store={store}> */}
+    <IonReactRouter>
+      <IonRouterOutlet>
+        {/* <PrivateRoute path="/" component={AppScreen} exact /> */}
+        <Route path="/login" component={LoginPage} exact />
+        <Route path="/register" component={RegisterPage} exact />
+      </IonRouterOutlet>
+    </IonReactRouter>
+    {/* </Provider> */}
   </IonApp>
 );
 

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 // import { connect } from "react-redux";
 import { Location } from "history";
 // import { login } from "../actions/auth/login";
-// import "./LoginPage.less";
+// import "./RegisterPage.less";
 // import { IState } from "../store/modules";
 import history from "../utils/getHistory";
 import useMount from "react-use/lib/useMount";
@@ -24,61 +24,63 @@ import {
 } from "@ionic/react";
 import { withRouter } from "react-router";
 
-interface ILoginPageProps {
+interface IRegisterPageProps {
   location: Location<{ redirect: Location }>;
 }
 
-interface ILoginPageStateProps {
+interface IRegisterPageStateProps {
   isAuthorized: boolean;
 }
 
-interface ILoginPageDispatchProps {
+interface IRegisterPageDispatchProps {
   authorize(email: string, password: string): Promise<IUser>;
 }
 
 /**
  * Компонент формы ввода логина и пароля
  */
-const LoginPage = (
-  props: ILoginPageProps & ILoginPageStateProps & ILoginPageDispatchProps
+const RegisterPage = (
+  props: IRegisterPageProps &
+    IRegisterPageStateProps &
+    IRegisterPageDispatchProps
 ) => {
-  //   const { location, isAuthorized } = props;
+  const { location, isAuthorized } = props;
 
-  //   const [phone, setEmail] = useState("");
-  //   const [password, setPassword] = useState("");
+  const [phone, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  //   useMount(() => {
-  //     if (isAuthorized) {
-  //       history.push("/");
-  //     }
-  //   });
+  useMount(() => {
+    if (isAuthorized) {
+      history.push("/");
+    }
+  });
 
-  //   const authorizeUser = useCallback(
-  //     async (email: string, password: string, rememberMe: boolean) => {
-  //       await props.authorize(email, password);
+  const authorizeUser = useCallback(
+    async (email: string, password: string, rememberMe: boolean) => {
+      await props.authorize(email, password);
 
-  //       let redirect = { pathname: "/" };
-  //       if (location.state && location.state.redirect) {
-  //         const stateRedirect = { ...location.state.redirect };
-  //         delete stateRedirect.key;
-  //         if (
-  //           stateRedirect.pathname !== "/login" &&
-  //           stateRedirect.pathname !== "/logout"
-  //         ) {
-  //           redirect = stateRedirect;
-  //         }
-  //       }
-  //       history.push(redirect);
-  //     },
-  //     [location]
-  //   );
+      let redirect = { pathname: "/" };
+      if (location.state && location.state.redirect) {
+        const stateRedirect = { ...location.state.redirect };
+        delete stateRedirect.key;
+        if (
+          stateRedirect.pathname !== "/register" &&
+          stateRedirect.pathname !== "/logout"
+        ) {
+          redirect = stateRedirect;
+        }
+      }
+      history.push(redirect);
+    },
+    [location]
+  );
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar color="light">
           <IonButtons slot="start" />
-          <IonTitle>Login</IonTitle>
+          <IonTitle>Регистрация</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
@@ -104,6 +106,39 @@ const LoginPage = (
             name="password"
           />
         </IonItem>
+        <IonItem>
+          <IonLabel position="floating">Имя</IonLabel>
+          <IonInput
+            type="text"
+            onIonChange={(e) => {
+              //@ts-ignore
+              setPassword(e.detail.value);
+            }}
+            name="text"
+          />
+        </IonItem>
+        <IonItem>
+          <IonLabel position="floating">Фамилия</IonLabel>
+          <IonInput
+            type="text"
+            onIonChange={(e) => {
+              //@ts-ignore
+              setPassword(e.detail.value);
+            }}
+            name="text"
+          />
+        </IonItem>
+        <IonItem>
+          <IonLabel position="floating">Отчество</IonLabel>
+          <IonInput
+            type="text"
+            onIonChange={(e) => {
+              //@ts-ignore
+              setPassword(e.detail.value);
+            }}
+            name="text"
+          />
+        </IonItem>
         <div style={{ padding: 10, paddingTop: 20 }}>
           <IonButton
             expand="full"
@@ -113,7 +148,7 @@ const LoginPage = (
                 return;
               }
               e.preventDefault();
-              //   _doLogin(history);
+              history.push("/login");
             }}
           >
             Войти
@@ -123,7 +158,6 @@ const LoginPage = (
             style={{ margin: 14 }}
             onClick={(e) => {
               e.preventDefault();
-              history.push("/register");
             }}
           >
             Регистрация
@@ -137,13 +171,12 @@ const LoginPage = (
 // const mapStateToProps = (state: IState) =>
 //   ({
 //     isAuthorized: state.auth.isAuthorized,
-//   } as ILoginPageStateProps);
+//   } as IRegisterPageStateProps);
 
 // const mapDispatchToProps = (dispatch: Dispatch) =>
 //   // @ts-ignore
 //   ({
 //     authorize: bindActionCreators(login, dispatch),
-//   } as ILoginPageDispatchProps);
-
+//   } as IRegisterPageDispatchProps);
 //@ts-ignore
-export default withRouter(LoginPage);
+export default withRouter(RegisterPage);
